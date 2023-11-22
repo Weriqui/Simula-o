@@ -158,7 +158,7 @@ async function parcelamentos(id, token) {
                         prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.04))/(qnt_parcelas-12)')
                     }
                     
-                } else if (lista['tipoDeParcelamento'].indexOf("TRANSAÇÃO EXTRAORDINARIA") !== -1){
+                } else if (lista['modalidade'].indexOf("TRANSACAO EXTRAORDINARIA") !== -1){
                     if (lista['tipoDeParcelamento'].indexOf("PREVIDENCIARIO") !== -1) {
                         valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/48
                         prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/48')
