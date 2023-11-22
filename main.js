@@ -41,11 +41,19 @@ async function obterToken(){
     return token;
 }
 
-pesquisa.addEventListener('click', ()=>{
+function pesquisar() {
     let consulta = document.querySelector("input").value
-    consultar(removerPontuacaoCNPJ(consulta));
+    document.body.innerHTML = `
+    <div id="centro">
+        <search id="pesquisar">
+            <input type="text" id="busca" name="q">
+            <button id="submit" onclick="pesquisar()">Pesquisar</button>
+        </search>
 
-})
+    </div>
+    `
+    consultar(removerPontuacaoCNPJ(consulta));
+}
 
 
 
