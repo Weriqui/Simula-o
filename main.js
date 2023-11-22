@@ -136,7 +136,7 @@ async function parcelamentos(id, token) {
         for (let i = 0; i < data.length; i++) {
             const lista = data[i];
 
-            if(lista["situacao"] ==="DEFERIDO E CONSOLIDADO") {
+            if(lista["situacao"] ==="DEFERIDO E CONSOLIDADO" && lista["qtdeDeParcelasConcedidas"] > 12) {
 
                 let prima;
                 let primo;
@@ -147,46 +147,58 @@ async function parcelamentos(id, token) {
                 let qnt_parcelas = lista['qtdeDeParcelasConcedidas']
                 let valor_consolidado = lista['valorConsolidado']
                 let valor_principal = lista['valorDoPrincipal']
-                let valor_parcelas = valor_consolidado/qnt_parcelas
+                let valor_parcelas;
                 let qnt_parcelas_reducao;
                 if (lista['tipoDeParcelamento'].indexOf("TRANSACAO EXCEPCIONAL") !== -1){
                     if(lista['tipoDeParcelamento'].indexOf("DEBITOS PREVIDENCIARIOS") !== -1) {
-                        valor_parcelas = (valor_principal - (valor_principal*0.04))/48
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.04))/48
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.04))/48')
                     } else {
-                        valor_parcelas = (valor_principal - (valor_principal*0.04))/(qnt_parcelas-12)
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.04))/(qnt_parcelas-12)
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.04))/(qnt_parcelas-12)')
                     }
                     
                 } else if (lista['tipoDeParcelamento'].indexOf("TRANSAÇÃO EXTRAORDINARIA") !== -1){
                     if (lista['tipoDeParcelamento'].indexOf("PREVIDENCIARIO") !== -1) {
-                        valor_parcelas = (valor_principal - (valor_principal*0.01))/48
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/48
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/48')
                     } else {
-                        valor_parcelas = (valor_principal - (valor_principal*0.01))/(qnt_parcelas-12)
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/(qnt_parcelas-12)
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.01))/(qnt_parcelas-12)')
                     }
                 } else if (lista['tipoDeParcelamento'].indexOf("EDITAL") !== -1){
                     if (lista['tipoDeParcelamento'].indexOf("PREVIDENCIARIO") !== -1) {
                         if (lista['modalidade'].indexOf("PEQUENO PORTE") !== -1) {
-                            valor_parcelas = (valor_principal - (valor_principal*0.06))/48
+                            valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/48
+                            prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/48')
                         } else {
-                            valor_parcelas = (valor_principal - (valor_principal*0.06))/54
+                            valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/54
+                            prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/54')
                         }
                     } else {
                         if (lista['modalidade'].indexOf("PEQUENO PORTE") !== -1) {
-                            valor_parcelas = (valor_principal - (valor_principal*0.06))/(qnt_parcelas-12)
+                            valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/(qnt_parcelas-12)
+                            prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/(qnt_parcelas-12)')
                         } else {
-                            valor_parcelas = (valor_principal - (valor_principal*0.06))/(qnt_parcelas-6)
+                            valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/(qnt_parcelas-6)
+                            prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/(qnt_parcelas-6)')
                         }
                     }
                 } else if (lista['tipoDeParcelamento'].indexOf("CONVENCIONAL") !== -1){
                     if (lista['tipoDeParcelamento'].indexOf("NAO PREVIDENCIARIA") !== -1) {
-                        valor_parcelas = valor_principal/qnt_parcelas
+                        valor_parcelas = valor_consolidado/qnt_parcelas
+                        prima = console.log('valor_parcelas = valor_principal/qnt_parcelas')
                     } else {
-                        valor_parcelas = valor_principal/60
+                        valor_parcelas = valor_consolidado/60
+                        prima = console.log('valor_parcelas = valor_principal/60')
                     }
                 } else if (lista['tipoDeParcelamento'].indexOf("PERT") !== -1) {
                     if (lista['tipoDeParcelamento'].indexOf("DEBITOS PREVIDENCIARIOS") !== -1) {
-                        valor_parcelas = (valor_principal - (valor_principal*0.15))/qnt_parcelas
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas')
                     } else {
-                        valor_parcelas = (valor_principal - (valor_principal*0.15))/60
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/60
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/60')
                     }
                 }
 
@@ -207,6 +219,7 @@ async function parcelamentos(id, token) {
     } catch (error) {
         console.error('Erro ao buscar os dados:', error);
     }
+    return prima
 }
 
 //parcelamentos();
@@ -331,6 +344,3 @@ function removerPontuacaoCNPJ(cnpj) {
     // Remove caracteres não numéricos
     return cnpj.replace(/\D/g, '');
 }
-  
-  
-  
