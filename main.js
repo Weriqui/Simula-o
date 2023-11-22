@@ -194,11 +194,11 @@ async function parcelamentos(id, token) {
                     }
                 } else if (lista['tipoDeParcelamento'].indexOf("PERT") !== -1) {
                     if (lista['tipoDeParcelamento'].indexOf("DEBITOS PREVIDENCIARIOS") !== -1) {
-                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas
-                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas')
-                    } else {
                         valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/60
                         prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/60')
+                    } else {
+                        valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas
+                        prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas')
                     }
                 }
 
