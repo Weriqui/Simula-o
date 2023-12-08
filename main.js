@@ -7,24 +7,24 @@ async function obterToken(){
         return tokenSalvo;
     }
 
-    const response = await fetch('https://back-villela.aceleradorvillela.com/api/acesso', {
+    const response = await fetch('https://back-villela2.aceleradorvillela.com/api/acesso', {
         method: 'POST',
         headers: {
-          'authority': 'back-villela.aceleradorvillela.com',
-          'accept': 'application/json, text/plain, */*',
-          'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6',
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          'origin': 'https://portal-saas.aceleradorvillela.com',
-          'pragma': 'no-cache',
-          'referer': 'https://portal-saas.aceleradorvillela.com/',
-          'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
-          'sec-ch-ua-mobile': '?0',
-          'sec-ch-ua-platform': '"Windows"',
-          'sec-fetch-dest': 'empty',
-          'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-site',
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/json',
+            'Origin': 'https://portal-saas.aceleradorvillela.com',
+            'Pragma': 'no-cache',
+            'Referer': 'https://portal-saas.aceleradorvillela.com/',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-site',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"'        
         },
         body: JSON.stringify({
           'email': 'bianca.silva@villelabrasil.com.br',
@@ -62,22 +62,24 @@ async function consultar(cnpj) {
         let token = await obterToken();
 
 
-        const response = await fetch(`https://back-ecac.aceleradorvillela.com/api/lead/buscar?cnpj=${cnpj}`, {
+        const response = await fetch(`https://back-ecac2.aceleradorvillela.com/api/lead/buscar?cnpj=${cnpj}`, {
             method: 'GET',
             headers: {
-                'authority': 'back-ecac.aceleradorvillela.com',
-                'accept': 'application/json, text/plain, */*',
-                'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-                'authorization': `Bearer ${token}`,
-                'origin': 'https://portal.aceleradorvillela.com',
-                'referer': 'https://portal.aceleradorvillela.com/',
-                'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6',
+                'Authorization': `Bearer ${token}`,
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Origin': 'https://portal.aceleradorvillela.com',
+                'Pragma': 'no-cache',
+                'Referer': 'https://portal.aceleradorvillela.com/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-site',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
                 'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"',
-                'sec-fetch-dest': 'empty',
-                'sec-fetch-mode': 'cors',
-                'sec-fetch-site': 'same-site',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+                'sec-ch-ua-platform': '"Windows"'
             }
         });
 
@@ -91,22 +93,24 @@ async function consultar(cnpj) {
         let novoToken = await obterToken();
             
         // Refaz a consulta com o novo token
-        const novaResposta = await fetch(`https://back-ecac.aceleradorvillela.com/api/lead/buscar?cnpj=${cnpj}`, {
+        const novaResposta = await fetch(`https://back-ecac2.aceleradorvillela.com/api/lead/buscar?cnpj=${cnpj}`, {
             method: 'GET',
             headers: {
-                'authority': 'back-ecac.aceleradorvillela.com',
-                'accept': 'application/json, text/plain, */*',
-                'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-                'authorization': `Bearer ${novoToken}`,
-                'origin': 'https://portal.aceleradorvillela.com',
-                'referer': 'https://portal.aceleradorvillela.com/',
-                'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6',
+                'Authorization': `Bearer ${token}`,
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Origin': 'https://portal.aceleradorvillela.com',
+                'Pragma': 'no-cache',
+                'Referer': 'https://portal.aceleradorvillela.com/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-site',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
                 'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"',
-                'sec-fetch-dest': 'empty',
-                'sec-fetch-mode': 'cors',
-                'sec-fetch-site': 'same-site',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+                'sec-ch-ua-platform': '"Windows"'
             }
         });
 
@@ -121,22 +125,23 @@ async function consultar(cnpj) {
 
 async function parcelamentos(id, token) {
     try {
-        const response = await fetch(`https://back-ecac.aceleradorvillela.com/api/leaddetalhes/${id}/parcelados`, {
-            method: 'GET',
+        const response = await fetch(`https://back-ecac2.aceleradorvillela.com/api/leaddetalhes/${id}/parcelados`, {
             headers: {
-                'authority': 'back-ecac.aceleradorvillela.com',
-                'accept': 'application/json, text/plain, */*',
-                'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-                'authorization': `Bearer ${token}`,
-                'origin': 'https://portal.aceleradorvillela.com',
-                'referer': 'https://portal.aceleradorvillela.com/',
-                'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6',
+                'Authorization': `Bearer ${token}`,
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Origin': 'https://portal.aceleradorvillela.com',
+                'Pragma': 'no-cache',
+                'Referer': 'https://portal.aceleradorvillela.com/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-site',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
                 'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"',
-                'sec-fetch-dest': 'empty',
-                'sec-fetch-mode': 'cors',
-                'sec-fetch-site': 'same-site',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+                'sec-ch-ua-platform': '"Windows"'
             }
         });
 
@@ -219,15 +224,17 @@ async function parcelamentos(id, token) {
                 }
     
                 inserirTabelas(cnpj, data_parcelamento, modalidade, nome_empresa, qnt_parcelas, valor_consolidado, valor_principal, valor_parcelas, qnt_parcelas_reducao)
+                
             }
 
 
             
         }
+        
     } catch (error) {
         console.error('Erro ao buscar os dados:', error);
     }
-    return prima
+    
 }
 
 //parcelamentos();
@@ -352,3 +359,6 @@ function removerPontuacaoCNPJ(cnpj) {
     // Remove caracteres não numéricos
     return cnpj.replace(/\D/g, '');
 }
+  
+  
+  
