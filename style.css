@@ -37,7 +37,7 @@ th {
 tr:nth-child(even){background-color: rgba(211, 211, 211, 0.692);}
 
 table {
-    width: 110vh;
+    width: 100%;
     margin: auto;
 }
 
