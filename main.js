@@ -149,7 +149,7 @@ async function parcelamentos(id, token) {
         for (let i = 0; i < data.length; i++) {
             const lista = data[i];
 
-            if(lista["situacao"] ==="DEFERIDO E CONSOLIDADO" && lista["qtdeDeParcelasConcedidas"] > 12) {
+            if ((lista["situacao"] === "DEFERIDO E CONSOLIDADO" || lista["situacao"] === "AGUARDANDO DEFERIMENTO") && lista["qtdeDeParcelasConcedidas"] > 12) {
 
                 let prima;
                 let primo;
@@ -197,7 +197,7 @@ async function parcelamentos(id, token) {
                             prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.06))/(qnt_parcelas-6)')
                         }
                     }
-                } else if (lista['tipoDeParcelamento'].indexOf("CONVENCIONAL") !== -1){
+                } else if (lista['tipoDeParcelamento'].indexOf("CONVENCIONAL") !== -1 || lista['tipoDeParcelamento'].indexOf("PARCELAMENTO DA RECUPERACAO JUDICIAL") !== -1){
                     if (lista['tipoDeParcelamento'].indexOf("NAO PREVIDENCIARIA") !== -1) {
                         valor_parcelas = valor_consolidado/qnt_parcelas
                         prima = console.log('valor_parcelas = valor_principal/qnt_parcelas')
@@ -359,6 +359,3 @@ function removerPontuacaoCNPJ(cnpj) {
     // Remove caracteres não numéricos
     return cnpj.replace(/\D/g, '');
 }
-  
-  
-  
