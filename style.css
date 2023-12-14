@@ -24,6 +24,12 @@ th, td {
     column-gap: 0;
 }
 
+th.end, td.end {
+    text-align: start; /* Alinha o texto à direita */
+    padding-right: 15px; /* Ajuste conforme necessário para alinhar com o cabeçalho */
+}
+
+
 th {
     background-color: rgba(128, 128, 128, 0.607);
     color: black;
@@ -37,7 +43,7 @@ th {
 tr:nth-child(even){background-color: rgba(211, 211, 211, 0.692);}
 
 table {
-    width: 100%;
+    width: 650px;
     margin: auto;
 }
 
