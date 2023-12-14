@@ -217,7 +217,7 @@ async function parcelamentos(id, token) {
 
 
 
-                if (lista["tipoDeParcelamento"].indexOf("PREVIDENCIARIO") !== -1) {
+                if (lista["tipoDeParcelamento"].indexOf("PREVIDENCIARIO") !== -1 || lista["modalidade"].indexOf("PREVIDENCIARIO") !== -1) {
                     qnt_parcelas_reducao = 60
                 } else {
                     qnt_parcelas_reducao = 145
