@@ -56,7 +56,6 @@ function pesquisar() {
 }
 
 
-
 async function consultar(cnpj) {
     try{
         let token = await obterToken();
@@ -225,9 +224,10 @@ async function parcelamentos(id, token) {
     
                 inserirTabelas(cnpj, data_parcelamento, modalidade, nome_empresa, qnt_parcelas, valor_consolidado, valor_principal, valor_parcelas, qnt_parcelas_reducao)
                 
+                
             }
-
-
+        
+            
             
         }
         
@@ -254,7 +254,7 @@ function inserirTabelas(cnpj, data, modalidade, nome_empresa, qnt_parcelas, valo
         <thead>
             <tr>
                 <th class="nome-empresa">${nome_empresa}</th>
-                <th class="cnpj">${formatarCNPJ(cnpj)}</th>
+                <th class="end cnpj">${formatarCNPJ(cnpj)}</th>
             </tr>
         </thead>
         <tbody>
@@ -262,24 +262,24 @@ function inserirTabelas(cnpj, data, modalidade, nome_empresa, qnt_parcelas, valo
                 <td class="tipo-parcelamento" colspan="2">${modalidade}</td>
             </tr>
             <tr class="data-parcelamento">
-                <td>DATA PARCELAMENTO</td>
-                <td>${data}</td>
+                <td class="start">DATA PARCELAMENTO</td>
+                <td class="end">${data}</td>
             </tr>
             <tr class="valor-consolidado">
-                <td>VALOR CONSOLIDADO</td>
-                <td>R$ ${formatarNumero(valor_consolidado)}</td>
+                <td class="start">VALOR CONSOLIDADO</td>
+                <td class="end">R$ ${formatarNumero(valor_consolidado)}</td>
             </tr>
             <tr class="valor-principal">
-                <td>VALOR PRINCIPAL</td>
-                <td>R$ ${formatarNumero(valor_principal)}</td>
+                <td class="start">VALOR PRINCIPAL</td>
+                <td class="end">R$ ${formatarNumero(valor_principal)}</td>
             </tr>
             <tr class="num-parcelas">
-                <td>Nº PARCELAS TOTAL</td>
-                <td>${qnt_parcelas}</td>
+                <td class="start">Nº PARCELAS TOTAL</td>
+                <td class="end">${qnt_parcelas}</td>
             </tr>
             <tr class="valor-parcela">
-                <td>VALOR PARCELA APROX. APÓS O PEDÁGIO</td>
-                <td>R$ ${formatarNumero(valor_parcelas)}</td>
+                <td class="start">VALOR PARCELA APROX. APÓS O PEDÁGIO</td>
+                <td class="end">R$ ${formatarNumero(valor_parcelas)}</td>
             </tr>
         </tbody>
     </table>
@@ -292,24 +292,24 @@ function inserirTabelas(cnpj, data, modalidade, nome_empresa, qnt_parcelas, valo
         </thead>
         <tbody>
             <tr class="valor-reducao">
-                <td>REDUÇÃO DE ATÉ</td>
-                <td>R$ ${formatarNumero(reducao)}</td>
+                <td class="start">REDUÇÃO DE ATÉ</td>
+                <td class="end">R$ ${formatarNumero(reducao)}</td>
             </tr>
             <tr class="valor-consolidado-villela">
-                <td>VALOR APOX. APÓS ASSESSORIA</td>
-                <td>R$ ${formatarNumero(principal_assessoria)}</td>
+                <td class="start">VALOR APOX. APÓS ASSESSORIA</td>
+                <td class="end">R$ ${formatarNumero(principal_assessoria)}</td>
             </tr>
             <tr class="valor-parcela-villela">
-                <td>Nº PARCELAS ATÉ</td>
-                <td>${qnt_parcelas_reducao}</td>
+                <td class="start">Nº PARCELAS ATÉ</td>
+                <td class="end">${qnt_parcelas_reducao}</td>
             </tr>
             <tr class="primeiro-ano-villela">
-                <td>1ª a 12ª</td>
-                <td>R$ ${formatarNumero(primeiro_ano)}</td>
+                <td class="start">1ª a 12ª</td>
+                <td class="end">R$ ${formatarNumero(primeiro_ano)}</td>
             </tr>
             <tr class="parcelas-restantes-villela">
-                <td>13ª a ${qnt_parcelas_reducao}ª</td>
-                <td>R$ ${formatarNumero(parcelas_restantes)}</td>
+                <td class="start">13ª a ${qnt_parcelas_reducao}ª</td>
+                <td class="end">R$ ${formatarNumero(parcelas_restantes)}</td>
             </tr>
         </tbody>
         <tfoot>
@@ -359,3 +359,43 @@ function removerPontuacaoCNPJ(cnpj) {
     // Remove caracteres não numéricos
     return cnpj.replace(/\D/g, '');
 }
+
+function minhaFuncaoDeRedimensionamento() {
+    let valor = document.querySelector("body > table:nth-child(2) > thead > tr > th.nome-empresa").getBoundingClientRect().width
+
+    document.querySelectorAll(".com-villela  td.start").forEach(function(celula) {
+        celula.style.width = `${valor}px`; // Altere para o valor de largura desejado
+    });
+    
+}
+
+function minhaFuncaoDeObservacao(mutationsList, observer) {
+    function procurarTag() {
+        // Selecione a tag que você está procurando
+        var minhaTag = document.querySelector("body > table:nth-child(2) > thead > tr > th.nome-empresa");
+        // Verifique se a tag existe
+        if (minhaTag) {
+          console.log('A tag foi encontrada:', minhaTag);
+          clearInterval(intervalId); // Pare o intervalo após encontrar a tag
+          minhaFuncaoDeRedimensionamento()
+        } else {
+          console.log('A tag não foi encontrada ainda...');
+        }
+    }
+      
+    var intervalId = setInterval(procurarTag, 100);
+}
+
+var alvo = document.querySelector('body');
+
+var observer = new MutationObserver(minhaFuncaoDeObservacao);
+
+var configuracaoObservador = { childList: true, subtree: true };
+
+observer.observe(alvo, configuracaoObservador);
+
+// Inicia a observação do nó-alvo com as opções
+
+
+// Adicione um ouvinte de evento para o evento "resize" na janela (window)
+window.addEventListener("resize", minhaFuncaoDeRedimensionamento);
