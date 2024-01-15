@@ -212,7 +212,6 @@ async function parcelamentos(id, token) {
                         valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas
                         prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas')
                     }
-                }
                 } else if (lista['tipoDeParcelamento'].indexOf("TRANSACAO NA DIVIDA ATIVA TRIBUTARIA DE PEQUENO VALOR - SIMPLES NACIONAL") !== -1) {
                     if (lista['tipoDeParcelamento'].indexOf("DEBITOS PREVIDENCIARIOS") !== -1) {
                         valor_parcelas = valor_consolidado/60
