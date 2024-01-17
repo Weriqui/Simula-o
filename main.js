@@ -402,8 +402,5 @@ var configuracaoObservador = { childList: true, subtree: true };
 
 observer.observe(alvo, configuracaoObservador);
 
-// Inicia a observação do nó-alvo com as opções
 
-
-// Adicione um ouvinte de evento para o evento "resize" na janela (window)
 window.addEventListener("resize", minhaFuncaoDeRedimensionamento);
