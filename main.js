@@ -394,3 +394,7 @@ window.addEventListener("resize", minhaFuncaoDeRedimensionamento);
 
 // Certifique-se de que a função seja executada quando a página for carregada
 // para lidar com a primeira renderização
+
+  
+  
+  
