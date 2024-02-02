@@ -43,15 +43,6 @@ async function obterToken(){
 
 function pesquisar() {
     let consulta = document.querySelector("input").value
-    document.body.innerHTML = `
-    <div id="centro">
-        <search id="pesquisar">
-            <input type="text" id="busca" name="q">
-            <button id="submit" onclick="pesquisar()">Pesquisar</button>
-        </search>
-
-    </div>
-    `
     consultar(removerPontuacaoCNPJ(consulta));
 }
 
@@ -212,14 +203,6 @@ async function parcelamentos(id, token) {
                         valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas
                         prima = console.log('valor_parcelas = (valor_consolidado - (valor_consolidado*0.15))/qnt_parcelas')
                     }
-                } else if (lista['tipoDeParcelamento'].indexOf("TRANSACAO NA DIVIDA ATIVA TRIBUTARIA DE PEQUENO VALOR - SIMPLES NACIONAL") !== -1) {
-                    if (lista['tipoDeParcelamento'].indexOf("DEBITOS PREVIDENCIARIOS") !== -1) {
-                        valor_parcelas = valor_consolidado/60
-                        prima = console.log('valor_parcelas =  valor_consolidado/60')
-                    } else {
-                        valor_parcelas = valor_consolidado/(qnt_parcelas-12)
-                        prima = console.log('valor_parcelas = valor_consolidado/(qnt_parcelas-12)')
-                    }
                 }
 
 
@@ -332,7 +315,7 @@ function inserirTabelas(cnpj, data, modalidade, nome_empresa, qnt_parcelas, valo
         </tfoot>
     </table>
     `
-    document.body.innerHTML += html
+    document.body.querySelector('#parcelamentos').innerHTML += html
 }
 
 
@@ -369,7 +352,7 @@ function removerPontuacaoCNPJ(cnpj) {
 }
 
 function minhaFuncaoDeRedimensionamento() {
-    let valor = document.querySelector("body > table:nth-child(2) > thead > tr > th.nome-empresa").getBoundingClientRect().width
+    let valor = document.querySelector("#parcelamentos > table.sem-villela > thead > tr > th.nome-empresa").getBoundingClientRect().width
 
     document.querySelectorAll(".com-villela  td.start").forEach(function(celula) {
         celula.style.width = `${valor}px`; // Altere para o valor de largura desejado
@@ -380,7 +363,7 @@ function minhaFuncaoDeRedimensionamento() {
 function minhaFuncaoDeObservacao(mutationsList, observer) {
     function procurarTag() {
         // Selecione a tag que você está procurando
-        var minhaTag = document.querySelector("body > table:nth-child(2) > thead > tr > th.nome-empresa");
+        var minhaTag = document.querySelector("#parcelamentos > table.sem-villela > thead > tr > th.nome-empresa");
         // Verifique se a tag existe
         if (minhaTag) {
           console.log('A tag foi encontrada:', minhaTag);
@@ -402,5 +385,15 @@ var configuracaoObservador = { childList: true, subtree: true };
 
 observer.observe(alvo, configuracaoObservador);
 
+// Inicia a observação do nó-alvo com as opções
 
+
+// Adicione um ouvinte de evento para o evento "resize" na janela (window)
 window.addEventListener("resize", minhaFuncaoDeRedimensionamento);
+
+// Certifique-se de que a função seja executada quando a página for carregada
+// para lidar com a primeira renderização
+
+  
+  
+  
