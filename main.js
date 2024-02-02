@@ -314,6 +314,7 @@ function inserirTabelas(cnpj, data, modalidade, nome_empresa, qnt_parcelas, valo
             </tr>
         </tfoot>
     </table>
+    <img src="fundo.png" alt="">
     `
     document.body.querySelector('#parcelamentos').innerHTML += html
 }
